@@ -103,6 +103,10 @@ public class QuizActivity extends AppCompatActivity {
             selectedOptionIndex = 4;
         });
         btnNext.setOnClickListener(view -> {
+            if (selectedOptionIndex == -1) {
+                Toast.makeText(this, "Vui lòng chọn một đáp án", Toast.LENGTH_SHORT).show();
+                return;
+            }
             checkAnswer();
             unSelectAllOptions();
             if (currentQuestionIndex < questions.size() - 1) {
@@ -172,10 +176,6 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void checkAnswer() {
-        if (selectedOptionIndex == -1) {
-            Toast.makeText(this, "Please select an option", Toast.LENGTH_SHORT).show();
-            return;
-        }
         Question question = questions.get(currentQuestionIndex);
         if (question.getOptions()[selectedOptionIndex - 1].isCorrect()) {
             correctAnswers++;
